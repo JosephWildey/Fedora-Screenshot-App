@@ -1,6 +1,7 @@
 import tkinter
 import os
 from PIL import Image, ImageTk
+import re
 
 window = tkinter.Tk()
 window.title('Take a screenshot')
@@ -11,9 +12,15 @@ def screenshot():
 
 button = tkinter.Button(window, text="Take screenshot!", command = screenshot)
 
-image_dir = "/home/user/Pictures/"
+pattern = "Screenshot"
+
+image_dir = "/home/joe/Pictures/"
 
 images = os.listdir(image_dir)
+
+for image in images:
+    if not re.search(pattern, image):
+        images.remove(image)
 
 last_image = ImageTk.PhotoImage(Image.open(image_dir + images[-1]))
 
